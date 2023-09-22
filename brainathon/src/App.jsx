@@ -127,7 +127,8 @@ export const App = () => {
     let updatedboard = SudokuBoard;
     const Box = ({ value, index }) => {
         const changed = (event) => {
-            updatedboard[event.target.name] = +event.target.value;
+            const updatedBoard = [...updatedboard];
+                        updatedBoard[event.target.name] = +event.target.value;
             setSudokuBoard(updatedboard);
         };
         return (
@@ -143,13 +144,13 @@ export const App = () => {
         );
     };
     const Board = ({ SudokuBoard }) => {
-        return (
-            <div className="board">
-                {SudokuBoard.map((value, index) => {
-                    return <Box key={index} value={value} index={index} />;
-                })}
-            </div>
-        );
+         return (
+     <div className="board">
+            {SudokuBoard.map((value, index) => {
+                return <Box key={index} value={value} index={index} />;
+            })}
+        </div>
+     );
     };
     const showsol = () => {
         let board = Array.from({ length: 9 }, () => Array(9).fill(null));
@@ -157,16 +158,21 @@ export const App = () => {
             board[Math.floor(i / 9)][i % 9] = SudokuBoard[i];
         }
         solveSudoku(board);
+        const updatedBoard = [...updatedboard]; // Create a new array
         for (let i = 0; i < SudokuBoard.length; i++) {
-            updatedboard[i] = board[Math.floor(i / 9)][i % 9];
+            updatedBoard[i] = board[Math.floor(i / 9)][i % 9];
         }
-        if (updatedboard === SudokuBoard) {
-            alert("You have already solved the sudoku");
-        } else {
-            alert("You have solved the sudoku");
-        }
-        setSudokuBoard(updatedboard);
-    };
+        setSudokuBoard(updatedBoard);
+     };
+     // if (updatedboard === SudokuBoard) {
+    //     alert("You have already solved the sudoku");
+    // } else {
+    //     alert("You have solved the sudoku");
+     // }
+     //
+    //     const newBoard = { ...updatedboard };
+    //     setSudokuBoard(newBoard);
+    // };
     return (
         <div className="App">
             <h1 id="title">Sudoku</h1>
