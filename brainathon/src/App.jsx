@@ -167,7 +167,10 @@ export const App = () => {
     };
     return (
         <div className="App">
-            <h1>Sudoku solver</h1>
+            <h1 id="title">Sudoku</h1>
+            <h3 id="subtitle">
+                Fill all the Sudoku boxes to win numbers range from (1-9)
+            </h3>
             <Board SudokuBoard={SudokuBoard} />
             <button onClick={showsol}>Solve</button>
         </div>
