@@ -153,7 +153,6 @@ export const App = () => {
     };
     const showsol = () => {
         let board = Array.from({ length: 9 }, () => Array(9).fill(null));
-        //hello
         for (let i = 0; i < SudokuBoard.length; i++) {
             board[Math.floor(i / 9)][i % 9] = SudokuBoard[i];
         }
@@ -161,9 +160,12 @@ export const App = () => {
         for (let i = 0; i < SudokuBoard.length; i++) {
             updatedboard[i] = board[Math.floor(i / 9)][i % 9];
         }
+        if (updatedboard === SudokuBoard) {
+            alert("You have already solved the sudoku");
+        } else {
+            alert("You have solved the sudoku");
+        }
         setSudokuBoard(updatedboard);
-        console.log(SudokuBoard);
-        //hello
     };
     return (
         <div className="App">
@@ -172,7 +174,7 @@ export const App = () => {
                 Fill all the Sudoku boxes to win numbers range from (1-9)
             </h3>
             <Board SudokuBoard={SudokuBoard} />
-            <button onClick={showsol}>Solve</button>
+            <button onClick={showsol}>Submit</button>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 body {
   background-color: #05131a;
+  font-family: "Comic Neue", cursive;
 }
 .App {
   text-align: center;
@@ -33,6 +34,7 @@ button:hover {
 }
 #title {
   color: white;
+  margin-bottom: 0;
 }
 #subtitle {
   color: #409fcf;
