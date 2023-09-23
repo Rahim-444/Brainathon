@@ -1,0 +1,218 @@
+/* start vars  */
+:root {
+  --primary: #1b6083;
+  --secondary: #f27922;
+  --sprimary: #409fcf;
+  --myblack: #05131a;
+  --primary_trans: 0.3s;
+}
+/* end vars  */
+/* start global rules */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: "Comic Neue", cursive;
+  background-color: var(--myblack);
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: calc(100% - 120px);
+  }
+}
+/* end global rules */
+
+/* start header  */
+.header {
+  color: white;
+  border-bottom: 1px solid var(--sprimary);
+  background-color: rgb(255 255 255 / 10%);
+}
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .logo {
+  border-style: none;
+  width: 50px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.header ul {
+  display: flex;
+}
+.header ul li a {
+  font-size: 26px;
+  font-weight: bold;
+  margin-left: 86px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  color: white;
+  transition: var(--primary_trans);
+}
+.header ul li a:hover {
+  color: var(--sprimary);
+}
+/* .design ul li::before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f390";
+    font-weight: 900;
+    margin-right: 20px;
+    position: relative;
+    top: 1px;
+} */
+/* end header  */
+/* start flip card */
+.flip-card {
+  margin: 40px auto;
+  width: fit-content;
+  perspective: 3000px;
+  height: calc(100vh - 130px);
+}
+.flip-card .box {
+  /* position: relative; */
+  width: 300px;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  transform-origin: right center;
+}
+.flip-card .box:hover {
+  transform: translateX(-100%) rotateY(180deg);
+}
+.flip-card .box .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  font-weight: bold;
+  font-size: 30px;
+  color: white;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  flex-direction: column;
+}
+/*start face front  */
+.flip-card .box .front {
+  background-color: #fff;
+  padding: 2px;
+  padding: 2px;
+}
+.flip-card .box .front img {
+  display: block;
+  border-radius: 16px 16px 0 0;
+}
+.flip-card .box .front .input {
+  background-color: rgb(255 255 255 / 70%);
+  border: none;
+}
+.flip-card .box .front .input:focus {
+  outline-color: transparent;
+}
+.flip-card .box .front .user_input {
+  max-width: 100%;
+  background-color: var(--myblack);
+  color: white;
+  border-radius: 6px;
+  padding: 14px 4px;
+}
+.flip-card .box .front .send {
+  cursor: pointer;
+  width: fit-content;
+  padding: 4px 20px;
+  border-radius: 16px;
+  margin-top: 4px;
+  background-color: var(--secondary);
+  color: white;
+}
+.flip-card .box .front form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+  margin-top: 10px;
+  align-items: center;
+}
+/* end face front  */
+
+/* start face back  */
+.flip-card .box .back {
+  background-color: var(--primary);
+  transform: rotateY(180deg);
+}
+.flip-card .box .back {
+  text-align: center;
+}
+.flip-card .box .back h1 {
+  color: var(--secondary);
+}
+.big_ramy {
+  display: flex;
+  flex-direction: row;
+}
+/* end face back  */
+.big_ramy i:first-child {
+  color: white;
+  position: absolute;
+  font-size: 320%;
+  top: 50%;
+  transform: translateY(-50%);
+  transform: rotate(180deg);
+  left: 20%;
+  transition: 0.6s;
+  padding: 30px;
+}
+.big_ramy i:first-child:hover {
+  color: var(--sprimary);
+  font-size: 330%;
+}
+.big_ramy i:last-child {
+  color: white;
+  position: absolute;
+  font-size: 320%;
+  top: 50%;
+  transform: translateY(-50%);
+  transform: rotate(0deg);
+  right: 20%;
+  transition: var(--primary_trans);
+  transition: 0.6s;
+  padding: 30px;
+}
+.big_ramy i:first-child:hover {
+  color: var(--sprimary);
+  font-size: 330%;
+}
+.big_ramy i:last-child:hover {
+  color: var(--sprimary);
+  font-size: 330%;
+}
+
+/* end flip card */
