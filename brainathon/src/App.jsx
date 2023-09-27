@@ -4,7 +4,7 @@ import "./componenets/box.css";
 import "./componenets/board.css";
 import { useState } from "react";
 export const App = () => {
-  const [SudokuBoard, setSudokuBoard] = useState([
+  const boardToSolve = [
     5,
     3,
     null,
@@ -86,8 +86,10 @@ export const App = () => {
     null,
     7,
     9,
-  ]);
-  var solveSudoku = function (board) {
+  ];
+  const [solved, setSolved] = useState(false);
+  const [SudokuBoard, setSudokuBoard] = useState(boardToSolve);
+  var solveSudoku = function(board) {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[0].length; j++) {
         if (board[i][j] === null) {
@@ -142,10 +144,6 @@ export const App = () => {
           id="box"
           style={(() => {
             const board = convert(SudokuBoard);
-            console.log(
-              isNumValid(Math.floor(index / 9), index % 9, value, board),
-            );
-            console.log(Math.floor(index / 9), index % 9, value, board);
             if (value === null) {
               return { background: "white" };
             }
@@ -163,6 +161,7 @@ export const App = () => {
       </>
     );
   };
+
   const Board = ({ SudokuBoard }) => {
     return (
       <div className="board">
@@ -180,15 +179,44 @@ export const App = () => {
     return board;
   };
   const showsol = () => {
-    const board = convert(SudokuBoard);
+    setSolved(true);
+    const board = convert(boardToSolve);
     solveSudoku(board);
-    const updatedBoard = [...SudokuBoard]; // Create a new array
+    const updatedBoard = [...boardToSolve]; // Create a new array
     for (let i = 0; i < SudokuBoard.length; i++) {
       updatedBoard[i] = board[Math.floor(i / 9)][i % 9];
     }
     setSudokuBoard(updatedBoard);
   };
+  const clear = () => {
+    const updatedBoard = [...boardToSolve];
+    setSudokuBoard(updatedBoard);
+    setSolved(false);
+  };
+  const EqualArrays = (SudokuBoard, updatedBoard) => {
+    for (let i = 0; i < SudokuBoard.length; i++) {
+      if (SudokuBoard[i] !== updatedBoard[i]) {
+        return false;
+      }
+    }
+    return true;
+  };
+  const submit = () => {
+    const board = convert(boardToSolve);
+    solveSudoku(board);
+    const updatedBoard = [...boardToSolve]; // Create a new array
+    for (let i = 0; i < SudokuBoard.length; i++) {
+      updatedBoard[i] = board[Math.floor(i / 9)][i % 9];
+    }
 
+    if (solved === false) {
+      if (EqualArrays(SudokuBoard, updatedBoard)) {
+        alert("You Won");
+      } else {
+        alert("You Lost");
+      }
+    }
+  };
   return (
     <div className="App">
       <h1 id="title">Sudoku</h1>
@@ -196,7 +224,11 @@ export const App = () => {
         Fill all the Sudoku boxes to win numbers range from (1-9)
       </h3>
       <Board SudokuBoard={SudokuBoard} />
-      <button onClick={showsol}>Solve</button>
+      <div className="buttons">
+        <button onClick={showsol}>Solve</button>
+        <button onClick={clear}>clear</button>
+        <button onClick={submit}>Submit</button>
+      </div>
     </div>
   );
 };
