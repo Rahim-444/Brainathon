@@ -164,6 +164,7 @@ export const App = () => {
 
   const Board = ({ SudokuBoard }) => {
     return (
+      //separte to 3x3 boxes
       <div className="board">
         {SudokuBoard.map((value, index) => {
           return <Box key={index} value={value} index={index} />;
