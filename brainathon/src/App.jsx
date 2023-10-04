@@ -3,90 +3,28 @@ import "./App.css";
 import "./componenets/box.css";
 import "./componenets/board.css";
 import { useState } from "react";
+import { getBoard } from "./componenets/getboard";
+import { useEffect } from "react";
 export const App = () => {
-  const boardToSolve = [
-    5,
-    3,
-    null,
-    null,
-    7,
-    null,
-    null,
-    null,
-    null,
-    6,
-    null,
-    null,
-    1,
-    9,
-    5,
-    null,
-    null,
-    null,
-    null,
-    9,
-    8,
-    null,
-    null,
-    null,
-    null,
-    6,
-    null,
-    8,
-    null,
-    null,
-    null,
-    6,
-    null,
-    null,
-    null,
-    3,
-    4,
-    null,
-    null,
-    8,
-    null,
-    3,
-    null,
-    null,
-    1,
-    7,
-    null,
-    null,
-    null,
-    2,
-    null,
-    null,
-    null,
-    6,
-    null,
-    6,
-    null,
-    null,
-    null,
-    null,
-    2,
-    8,
-    null,
-    null,
-    null,
-    null,
-    4,
-    1,
-    9,
-    null,
-    null,
-    5,
-    null,
-    null,
-    null,
-    null,
-    8,
-    null,
-    null,
-    7,
-    9,
-  ];
+  const convert = (SudokuBoard) => {
+    let board = Array.from({ length: 9 }, () => Array(9).fill(null));
+    for (let i = 0; i < SudokuBoard.length; i++) {
+      board[Math.floor(i / 9)][i % 9] = SudokuBoard[i];
+    }
+    return board;
+  };
+  const reverseConvert = (board) => {
+    let SudokuBoard = Array.from({ length: 81 }, () => null);
+    for (let i = 0; i < SudokuBoard.length; i++) {
+      SudokuBoard[i] = board[Math.floor(i / 9)][i % 9];
+      if (SudokuBoard[i] === 0) SudokuBoard[i] = null;
+    }
+    return SudokuBoard;
+  };
+  const [boardToSolve, setbaordtosolve] = useState(
+    Array.from({ length: 81 }, () => null),
+  );
+
   const [solved, setSolved] = useState(false);
   const [SudokuBoard, setSudokuBoard] = useState(boardToSolve);
   var solveSudoku = function(board) {
@@ -135,7 +73,9 @@ export const App = () => {
   const Box = ({ value, index }) => {
     const changed = (event) => {
       const updatedBoard = [...updatedboard];
-      updatedBoard[event.target.name] = +event.target.value;
+      let value = +event.target.value;
+      isNaN(value) ? (value = null) : (value = value);
+      updatedBoard[event.target.name] = value;
       setSudokuBoard(updatedBoard);
     };
     return (
@@ -161,7 +101,6 @@ export const App = () => {
       </>
     );
   };
-
   const Board = ({ SudokuBoard }) => {
     return (
       //separte to 3x3 boxes
@@ -172,22 +111,13 @@ export const App = () => {
       </div>
     );
   };
-  const convert = (SudokuBoard) => {
-    let board = Array.from({ length: 9 }, () => Array(9).fill(null));
-    for (let i = 0; i < SudokuBoard.length; i++) {
-      board[Math.floor(i / 9)][i % 9] = SudokuBoard[i];
-    }
-    return board;
-  };
   const showsol = () => {
     setSolved(true);
     const board = convert(boardToSolve);
     solveSudoku(board);
-    const updatedBoard = [...boardToSolve]; // Create a new array
-    for (let i = 0; i < SudokuBoard.length; i++) {
-      updatedBoard[i] = board[Math.floor(i / 9)][i % 9];
-    }
-    setSudokuBoard(updatedBoard);
+    const updatedBoard = [...board]; // Create a new array
+    const newboard = reverseConvert(updatedBoard);
+    setSudokuBoard(newboard);
   };
   const clear = () => {
     const updatedBoard = [...boardToSolve];
@@ -218,6 +148,15 @@ export const App = () => {
       }
     }
   };
+  const Startgame = () => {
+    getBoard().then((board) => {
+      setbaordtosolve(board);
+      setSudokuBoard(board);
+    });
+  };
+  useEffect(() => {
+    Startgame();
+  }, []);
   return (
     <div className="App">
       <h1 id="title">Sudoku</h1>
@@ -226,6 +165,7 @@ export const App = () => {
       </h3>
       <Board SudokuBoard={SudokuBoard} />
       <div className="buttons">
+        <button onClick={Startgame}>new</button>
         <button onClick={showsol}>Solve</button>
         <button onClick={clear}>clear</button>
         <button onClick={submit}>Submit</button>
