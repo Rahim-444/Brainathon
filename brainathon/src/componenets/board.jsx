@@ -8,6 +8,7 @@ export const Board = ({ SudokuBoard, props }) => {
       {SudokuBoard.map((value, index) => {
         return (
           <Box
+            className="borders"
             value={value}
             index={index}
             setval={props.setval}
