@@ -20,13 +20,17 @@
   /* Additional styling for individual boxes, if needed */
 }
 
-/* Add styling for the gaps between the 3x3 boxes */
-.board > :nth-child(3n):not(:nth-child(9n)) {
-  /* border-right: 20px solid white; */
-}
 .board > :nth-child(27n) {
   margin-bottom: 0.6rem; /* Add a bottom padding every 3rd row */
 }
 .board > :nth-child(81) {
   margin-bottom: 0;
+}
+@media only screen and (max-width: 600px) {
+  .board {
+    grid-template-columns: 1.5rem 1.5rem 1.8rem 1.5rem 1.5rem 1.8rem 1.5rem 1.5rem 1.5rem;
+  }
+  .board > :nth-child(27n) {
+    margin-bottom: 0.3rem; /* Add a bottom padding every 3rd row */
+  }
 }
