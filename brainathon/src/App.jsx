@@ -75,6 +75,9 @@ export const App = () => {
       const updatedBoard = [...updatedboard];
       let value = +event.target.value;
       isNaN(value) ? (value = null) : (value = value);
+      if (boardToSolve[index] !== null) {
+        value = boardToSolve[index];
+      }
       updatedBoard[event.target.name] = value;
       setSudokuBoard(updatedBoard);
     };
@@ -88,7 +91,11 @@ export const App = () => {
               return { background: "white" };
             }
             if (isNumValid(Math.floor(index / 9), index % 9, value, board)) {
-              return { background: "#1b6083" };
+              if (boardToSolve[index] !== null) {
+                return { background: "grey" };
+              } else {
+                return { background: "#1b6083" };
+              }
             } else {
               return { background: "red" };
             }
