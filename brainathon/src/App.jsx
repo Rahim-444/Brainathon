@@ -159,6 +159,7 @@ export const App = () => {
     getBoard().then((board) => {
       setbaordtosolve(board);
       setSudokuBoard(board);
+      setSolved(false);
     });
   };
   useEffect(() => {
@@ -172,7 +173,7 @@ export const App = () => {
       </h3>
       <Board SudokuBoard={SudokuBoard} />
       <div className="buttons">
-        <button onClick={Startgame}>new</button>
+        <button onClick={Startgame}>newG</button>
         <button onClick={showsol}>Solve</button>
         <button onClick={clear}>clear</button>
         <button onClick={submit}>Submit</button>
